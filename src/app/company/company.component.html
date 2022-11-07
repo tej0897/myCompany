@@ -1,29 +1,33 @@
+<h1 style="padding: 20px;"> Company Area </h1>
 <div class="card mt-5" style="padding: 20px;">
-    <form #companyData="ngForm" (ngSubmit)="addCompany(companyData)">
+    <form #companyData="ngForm" (ngSubmit)="addCompany()">
 
       <div class="form-group">
         <label for="companyID"> Company ID </label>
-        <input type="number" #name (ngModel)="companyID" name="companyID" id="companyID" class="form-control" placeholder="enter company ID">
+        <input name="companyID" class="form-control" type="number" placeholder="enter company ID"
+        [(ngModel)]="companyObj.companyID" required>
       </div>
 
       <div class="form-group">
         <label for="companyName"> Company Name</label>
-        <input type="text" #name (ngModel)="companyName" name="companyName" id="companyName" class="form-control" placeholder="enter company Name">
+        <input name="companyName" class="form-control" type="text" placeholder="enter company name" [(ngModel)]="companyObj.companyName" required>
       </div>
 
       <div class="form-group">
         <label for="companyCEO"> Company CEO</label>
-        <input type="text" #name (ngModel)="companyCEO" name="companyCEO" id="companyCEO" class="form-control" placeholder="enter company CEO">
+        <input name="companyCEO" class="form-control" type="text" placeholder="enter company ceo"
+        [(ngModel)]="companyObj.companyCEO" required>
       </div>
 
       <div class="form-group">
         <label for="turnover"> Company turnover</label>
-        <input type="number" #name (ngModel)="turnover" name="turnover" id="turnover" class="form-control" placeholder="enter company turnover">
+        <input name="turnover" class="form-control" type="number" placeholder="enter company turnover" [(ngModel)]="companyObj.turnover" required>
       </div>
 
       <div class="form-group">
         <label for="website"> Company website</label>
-        <input type="text" #name (ngModel)="website" name="website" id="website" class="form-control" placeholder="enter company website">
+        <input name="website" class="form-control" type="text" placeholder="enter company website"
+        [(ngModel)]="companyObj.website" required>
       </div>
       
 
@@ -36,7 +40,7 @@
 </div>
 
 <div class="mt-5">
-
+    <button type="button" (click)="getCompanyDetails()" class="btn btn-primary"> View Companies</button> <br>
     <table class="table table-bordered">
         <thead class="thead">
             <tr>
@@ -44,24 +48,31 @@
                 <th>Company Name</th>
                 <th>Company CEO</th>
                 <th>Company turnover</th>
-                <th>Company WebSite</th>
+                <th>Company Website</th>
                 <th>Stock Price</th>
+                <th>Delete</th>
+                <th>Update</th>
+
             </tr>
 
         </thead>
         <tbody class="tbody">
-            <tr *ngFor="let company of companyDetails">
+            <tr *ngFor="let company of companyList">
 
-                <td> company.companyID </td>
-                <!-- <td> {{company.companyName}} </td>
+                <td> {{company.companyID}} </td>
+                <td> {{company.companyName}} </td>
                 <td> {{company.companyCEO}} </td>
                 <td> {{company.turnover}} </td>
                 <td> {{company.website}} </td>
-                <td> {{company.stockPrice}} </td> -->
+                <td> {{company.stockPrice}} </td>
+                <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                  (click)="updateCompany(company)">Update</button></td>
+
+              <td><button type="button" class="btn btn-danger" (click)="deleteCompany(company)">Delete</button></td>
+
             </tr>
 
         </tbody>
 
     </table>
-
 </div>

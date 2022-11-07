@@ -17,4 +17,13 @@ export class CompanyService {
     return this.http.get(this.API + '/getAllCompanies');
   }
 
+  public deleteCompany(id: any) {
+    return this.http.delete(this.API + '/deleteCompany?id=' + id);
+  }
+
+  public updateCompany(company: any) {
+    return this.http.put(this.API + '/updateCompany', company);
+  }
+
+
 }

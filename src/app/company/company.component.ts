@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Company } from './company';
 import { CompanyService } from './company.service';
 
 @Component({
@@ -8,28 +9,25 @@ import { CompanyService } from './company.service';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-companyID: any;
-companyName: any;
-companyCEO: any;
-turnover: any;
-website: any;
+
+
+companyObj : Company = new Company();
+companyList: Array<Company> = [];
+data:{}|any;
 
   constructor(private companyService: CompanyService) {
-    this.getCompanyDetails();
+      this.getCompanyDetails();
    }
 
   ngOnInit(): void {
   }
 
-  companyDetails = null as any;
-
-
-  addCompany(companyData: NgForm){
-    this.companyService.addCompany(companyData.value).subscribe(
-      (resp) => {
-        console.log(resp);
-        companyData.reset();
-        this.getCompanyDetails();
+  addCompany(){
+    this.companyService.addCompany(this.companyObj).subscribe(
+      (data) => {
+        this.data = JSON.stringify(data);
+        this.companyList.push(this.data);
+        console.log(data);
       },
       (err) => {
         console.log(err);
@@ -39,14 +37,23 @@ website: any;
 
   getCompanyDetails() {
     this.companyService.getCompany().subscribe(
-      (resp) => {
-        console.log(resp);
-        this.companyDetails = resp;
+      (data) => {
+        this.companyList = Object.values(data);
+        console.log(this.companyList);
+       // this.companyDetails = resp;
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  updateCompany(company: Company){
+
+  }
+
+  deleteCompany(company: Company){
+    
   }
 
 }
